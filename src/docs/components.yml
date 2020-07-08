@@ -1,5 +1,28 @@
 components:
   schemas:
+    Contact:
+      type: object
+      properties:
+        id:
+          type: string
+        firstName:
+          type: string
+        lastName:
+          type: string
+        companyName:
+          type: string
+        email:
+          type: string
+          format: email
+        phoneNumber:
+          type: number
+      example:
+        firstName: Jethro
+        lastName: Estrada
+        companyName: Amazon
+        email: jethroestrada237@gmail.com
+        phoneNumber: 639159897270
+
     User:
       type: object
       properties:
