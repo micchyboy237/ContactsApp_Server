@@ -1,33 +1,33 @@
 const express = require('express');
 const auth = require('../../middlewares/auth');
 const validate = require('../../middlewares/validate');
-const userValidation = require('../../validations/user.validation');
-const userController = require('../../controllers/user.controller');
+const contactValidation = require('../../validations/contact.validation');
+const contactController = require('../../controllers/contact.controller');
 
 const router = express.Router();
 
 router
   .route('/')
-  .post(validate(userValidation.createUser), userController.createUser)
-  .get(userController.getUsers);
+  .post(validate(contactValidation.createContact), contactController.createContact)
+  .get(contactController.getContacts);
 
 module.exports = router;
 
 /**
  * @swagger
  * tags:
- *   name: Users
- *   description: User management and retrieval
+ *   name: Contacts
+ *   description: Contact management and retrieval
  */
 
 /**
  * @swagger
  * path:
- *  /users:
+ *  /contacts:
  *    post:
- *      summary: Create a user
- *      description: Only admins can create other users.
- *      tags: [Users]
+ *      summary: Create a contact
+ *      description: Only admins can create other contacts.
+ *      tags: [Contacts]
  *      security:
  *        - bearerAuth: []
  *      requestBody:
@@ -55,19 +55,19 @@ module.exports = router;
  *                  description: At least one number and one letter
  *                role:
  *                   type: string
- *                   enum: [user, admin]
+ *                   enum: [contact, admin]
  *              example:
  *                name: fake name
  *                email: fake@example.com
  *                password: password1
- *                role: user
+ *                role: contact
  *      responses:
  *        "201":
  *          description: Created
  *          content:
  *            application/json:
  *              schema:
- *                 $ref: '#/components/schemas/User'
+ *                 $ref: '#/components/schemas/Contact'
  *        "400":
  *          $ref: '#/components/responses/DuplicateEmail'
  *        "401":
@@ -76,9 +76,9 @@ module.exports = router;
  *          $ref: '#/components/responses/Forbidden'
  *
  *    get:
- *      summary: Get all users
- *      description: Only admins can retrieve all users.
- *      tags: [Users]
+ *      summary: Get all contacts
+ *      description: Only admins can retrieve all contacts.
+ *      tags: [Contacts]
  *      security:
  *        - bearerAuth: []
  *      parameters:
@@ -86,12 +86,12 @@ module.exports = router;
  *          name: name
  *          schema:
  *            type: string
- *          description: User name
+ *          description: Contact name
  *        - in: query
  *          name: role
  *          schema:
  *            type: string
- *          description: User role
+ *          description: Contact role
  *        - in: query
  *          name: sortBy
  *          schema:
@@ -103,7 +103,7 @@ module.exports = router;
  *            type: integer
  *            minimum: 1
  *          default: 10
- *          description: Maximum number of users
+ *          description: Maximum number of contacts
  *        - in: query
  *          name: page
  *          schema:
@@ -122,7 +122,7 @@ module.exports = router;
  *                  results:
  *                    type: array
  *                    items:
- *                      $ref: '#/components/schemas/User'
+ *                      $ref: '#/components/schemas/Contact'
  *                  page:
  *                    type: integer
  *                    example: 1
